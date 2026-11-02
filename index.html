@@ -1,0 +1,214 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Agustín Delmonti</title>
+<meta name="description" content="Engineer in Rosario, Argentina. CTO at PolPilot. I build AI agents that work inside real businesses.">
+<meta property="og:title" content="Agustín Delmonti">
+<meta property="og:description" content="Engineer in Rosario, Argentina. CTO at PolPilot. I build AI agents that work inside real businesses.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:ital,wght@0,400..900;1,400..900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --paper: #EFF3F2;
+    --ink: #1E2A30;
+    --soft: #4A5A61;
+    --river: #1D6A72;
+    --silt: #8A979C;
+    --sun: #D9A21B;
+    --rail-x: 9.5rem;
+  }
+  * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    margin: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font: 400 1.0625rem/1.6 "Schibsted Grotesk", system-ui, sans-serif;
+  }
+  a { color: var(--river); text-underline-offset: .2em; text-decoration-thickness: 1px; }
+  a:hover { text-decoration-thickness: 2px; }
+  a:focus-visible { outline: 2px solid var(--river); outline-offset: 3px; border-radius: 2px; }
+
+  .page { max-width: 54rem; margin: 0 auto; padding: 4.5rem 1.5rem 5rem; }
+
+  header.intro { margin-left: var(--rail-x); max-width: 38rem; }
+  h1 {
+    font-size: clamp(3rem, 9vw, 5.75rem);
+    font-weight: 800;
+    line-height: .92;
+    letter-spacing: -.035em;
+    margin: 0 0 1.75rem;
+  }
+  .lede { font-size: 1.3rem; line-height: 1.45; margin: 0 0 1.25rem; }
+  .contact { display: flex; flex-wrap: wrap; gap: .4rem 1.4rem; margin: 0; padding: 0; list-style: none; }
+
+  .timeline { margin-top: 4.5rem; }
+  .era { position: relative; }
+  .era::before {
+    content: "";
+    position: absolute;
+    top: .35rem;
+    bottom: 2.6rem;
+    left: calc(var(--rail-x) - 1.5rem);
+    transform-origin: top;
+  }
+  .era-agents::before { width: 3px; background: var(--river); animation: draw .9s ease-out both; }
+  .era-before::before { width: 1px; margin-left: 1px; background: var(--silt); animation: draw .7s .8s ease-out both; }
+  @keyframes draw { from { transform: scaleY(0); } to { transform: scaleY(1); } }
+
+  .era-note {
+    margin: 0 0 2.5rem var(--rail-x);
+    max-width: 34rem;
+    color: var(--soft);
+    font-style: italic;
+  }
+
+  .entry { display: grid; grid-template-columns: calc(var(--rail-x) - 3rem) 1fr; column-gap: 3rem; margin-bottom: 2.6rem; }
+  .when { text-align: right; color: var(--soft); font-size: .95rem; padding-top: .2rem; font-variant-numeric: tabular-nums; }
+  .what { max-width: 36rem; }
+  h2 { font-size: 1.35rem; font-weight: 700; letter-spacing: -.01em; line-height: 1.25; margin: 0 0 .15rem; }
+  .role { color: var(--soft); margin: 0 0 .6rem; }
+  .what p { margin: 0 0 .6rem; }
+
+  .before .when, .before .role { color: var(--silt); }
+  .before h2 { font-weight: 600; font-size: 1.15rem; }
+  .before .what p { color: var(--soft); }
+
+  .wins { margin: 4rem 0 0 var(--rail-x); max-width: 36rem; }
+  .wins h3, .side h3 { font-size: 1.35rem; font-weight: 700; margin: 0 0 1rem; letter-spacing: -.01em; }
+  .wins ul { list-style: none; margin: 0; padding: 0; }
+  .wins li { position: relative; padding-left: 1.4rem; margin-bottom: .55rem; }
+  .wins li::before {
+    content: ""; position: absolute; left: 0; top: .55em;
+    width: .6rem; height: .6rem; border-radius: 50%; background: var(--sun);
+  }
+
+  .side { margin: 4rem 0 0 var(--rail-x); max-width: 36rem; }
+  .side dl { margin: 0; }
+  .side dt { font-weight: 700; margin-top: 1.1rem; }
+  .side dd { margin: .15rem 0 0; }
+
+  footer { margin: 5rem 0 0 var(--rail-x); color: var(--soft); font-size: .95rem; }
+
+  @media (max-width: 40rem) {
+    :root { --rail-x: 1.25rem; }
+    .page { padding-top: 3rem; }
+    header.intro, .era-note, .wins, .side, footer { margin-left: var(--rail-x); }
+    .era::before { left: 0; }
+    .entry { grid-template-columns: 1fr; padding-left: var(--rail-x); }
+    .when { text-align: left; padding: 0; margin-bottom: .2rem; }
+    .era-note { padding-left: 0; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .era::before { animation: none; }
+  }
+</style>
+</head>
+<body>
+<main class="page">
+  <header class="intro">
+    <h1>Agustín Delmonti</h1>
+    <p class="lede">Engineer in Rosario, Argentina. I build AI agents that work inside real businesses: models read and propose, and code checks every number before anyone acts on it.</p>
+    <ul class="contact">
+      <li><a href="mailto:agus.delmonti@gmail.com">agus.delmonti@gmail.com</a></li>
+      <li><a href="https://github.com/agustindelmonti">GitHub</a></li>
+      <li><a href="https://www.linkedin.com/in/agustin-delmonti/">LinkedIn</a></li>
+      <li><a href="https://x.com/agus_delmo">X</a></li>
+    </ul>
+  </header>
+
+  <section class="timeline" aria-label="Work">
+    <div class="era era-agents">
+    <article class="entry">
+      <div class="when">2026 to now</div>
+      <div class="what">
+        <h2>PolPilot</h2>
+        <p class="role">CTO and co-founder</p>
+        <p>An AI operations layer for small and mid-sized businesses. Its first vertical runs the paperwork of seed-potato growers: field records from a photo or a voice note, every kilo tracked per lot, and filings checked against the regulation before a technical director signs them.</p>
+        <p>I'm the only engineer. I set the architecture and review everything that ships, directing coding agents through 1,600+ commits since August 2026.</p>
+      </div>
+    </article>
+
+    <article class="entry">
+      <div class="when">2023 to now</div>
+      <div class="what">
+        <h2>Sifted</h2>
+        <p class="role">Forward Deployed Engineer · parcel-logistics analytics, Kansas City (remote)</p>
+        <p>I architected and built Sifted's own AI agent platform and led the UI engineers who shipped it with me: an agent loop on AWS Bedrock with about 40 tools, permission gates, MCP connectors, scheduled autonomous agents and its own telemetry. It replaced Snowflake's vendor agent for every customer about three months after the first commit, and now serves around 100 people a day and 241 scheduled agents.</p>
+        <p>I also shipped it as a public MCP server, listed in Anthropic's Claude connector directory. Before the AI work, I led an initiative that cut $2M a year in maintenance costs.</p>
+      </div>
+    </article>
+
+    </div>
+
+    <p class="era-note">Before agents, I learned systems the slow way: event streams, queues, ERPs and a bank's audit trail.</p>
+
+    <div class="era era-before">
+    <article class="entry before">
+      <div class="when">2022 to 2023</div>
+      <div class="what">
+        <h2>Santander Tecnología</h2>
+        <p class="role">Senior Software Engineer and Architect</p>
+        <p>Designed and built the bank's centralized, event-driven audit-logging platform (Kafka, Go, Java), which backs its legal data requirements, and drove its adoption across internal teams.</p>
+      </div>
+    </article>
+
+    <article class="entry before">
+      <div class="when">2021 to 2022</div>
+      <div class="what">
+        <h2>Mutual de Socios AMR</h2>
+        <p class="role">Full-stack .NET developer</p>
+        <p>ERP modules and a high-concurrency ordering, stock and pricing platform for external clients.</p>
+      </div>
+    </article>
+
+    <article class="entry before">
+      <div class="when">2019 to 2020</div>
+      <div class="what">
+        <h2>Talkiu and the City of Rosario</h2>
+        <p class="role">Backend and full-stack developer</p>
+        <p>A MercadoLibre stock sync in Go, and real-time traffic dashboards for the city.</p>
+      </div>
+    </article>
+
+    <article class="entry before">
+      <div class="when">2017 to 2023</div>
+      <div class="what">
+        <h2>UTN Rosario</h2>
+        <p class="role">Information Systems Engineering · GPA 9.21/10</p>
+        <p>Exchange semester at the University of Arkansas in 2020 on a Friends of Fulbright scholarship.</p>
+      </div>
+    </article>
+    </div>
+  </section>
+
+  <section class="wins" aria-labelledby="wins-title">
+    <h3 id="wins-title">Wins</h3>
+    <ul>
+      <li>1st place, Cursor Hackathon Mar del Plata 2026</li>
+      <li>1st place, Finance track, Shippear ed. 2, Rosario 2026</li>
+      <li>1st place, AI track, Córdoba Hack 2026</li>
+      <li>Friends of Fulbright Scholarship, 2020</li>
+      <li>Among the top GPAs of my class, in Punto Biz's list of Rosario's top graduates</li>
+    </ul>
+  </section>
+
+  <section class="side" aria-labelledby="side-title">
+    <h3 id="side-title">On the side</h3>
+    <dl>
+      <dt><a href="https://app.metriu.com">Metriu</a></dt>
+      <dd>A web app for nutritionists and sports professionals to run ISAK anthropometric assessments and body-composition analysis.</dd>
+      <dt><a href="https://github.com/agustindelmonti/speco-playground">Speco</a></dt>
+      <dd>Code review for specs, before agents write the code. Built alone in two weeks; paused.</dd>
+      <dt><a href="https://github.com/agustindelmonti/argennews">Pampa 7 Noticias</a></dt>
+      <dd>A fake 90s Argentine TV channel. Record ten seconds and Claude writes a comedy news story that goes on air, ticker and CRT filter included. Anyone's AI assistant can send it stories over MCP.</dd>
+    </dl>
+  </section>
+
+  <footer>Rosario, Argentina</footer>
+</main>
+</body>
+</html>
