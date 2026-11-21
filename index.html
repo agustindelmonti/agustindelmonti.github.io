@@ -425,8 +425,14 @@
   .foot-cols a, .foot-cols p { display: block; color: var(--soft); font-size: 15.5px; margin: 0 0 10px; }
   .foot-cols a:hover { color: var(--ink); }
   .wordmark { display: grid; justify-content: center; gap: 0; margin: 0 auto; }
-  .wordmark svg { width: calc(var(--cell) * 1.14); height: calc(var(--cell) * .9); margin: 0 0 calc(var(--cell) * -.12) calc(var(--cell) * -.07); color: #74C0F4; transition: translate .2s; filter: drop-shadow(0 1px 1.5px rgba(0,0,0,.14)); }
-  .wordmark svg:hover { translate: 0 -4px; }
+  .wordmark { padding: 30px 0 14px calc(var(--cell) * .3); touch-action: pan-y; grid-auto-rows: calc(var(--cell) * .82); }
+  .wordmark svg {
+    width: calc(var(--cell) * 1.6); height: calc(var(--cell) * 1.25);
+    margin: calc(var(--cell) * -.15) 0 0 calc(var(--cell) * -.3);
+    color: #74C0F4;
+    filter: drop-shadow(0 1px 1.5px rgba(0,0,0,.18));
+    transition: translate .45s cubic-bezier(.3,1.7,.5,1), scale .45s cubic-bezier(.3,1.7,.5,1);
+  }
 
   /* floppy, the site agent */
   .tidying .item { transition: translate .9s cubic-bezier(.3,1.3,.5,1), opacity .25s, scale .25s; }
@@ -1087,7 +1093,7 @@
   for (var r = 0; r < 8; r++) rows.push(letters.map(function (ch) { return FONT[ch][r]; }).join('.'));
   var cols = rows[0].length;
   wm.style.gridTemplateColumns = 'repeat(' + cols + ', var(--cell))';
-  wm.style.setProperty('--cell', 'min(30px, calc((100vw - 40px) / ' + cols + '))');
+  wm.style.setProperty('--cell', 'min(26px, calc((100vw - 90px) / ' + cols + '))');
   rows.forEach(function (row) {
     row.split('').forEach(function (c) {
       var cell = c === '#' ? document.createElementNS('http://www.w3.org/2000/svg', 'svg') : document.createElement('span');
@@ -1095,6 +1101,24 @@
       wm.appendChild(cell);
     });
   });
+
+  // Folders near the pointer jump up in a wave and spring back.
+  var wmFolders = Array.prototype.slice.call(wm.querySelectorAll('svg')), centers = [], raf = 0, ptr = null;
+  function measure() { centers = wmFolders.map(function (f) { var r = f.getBoundingClientRect(); return [r.left + r.width / 2, r.top + r.height / 2]; }); }
+  function wave() {
+    raf = 0;
+    var R = wmFolders[0].getBoundingClientRect().width * 2.6;
+    wmFolders.forEach(function (f, i) {
+      var k = 0;
+      if (ptr) { var d = Math.hypot(centers[i][0] - ptr[0], centers[i][1] - ptr[1]); k = Math.max(0, 1 - d / R); }
+      f.style.translate = k ? '0 ' + (-k * k * 22).toFixed(1) + 'px' : '';
+      f.style.scale = k ? (1 + k * .12).toFixed(3) : '';
+    });
+  }
+  wm.addEventListener('pointerenter', measure);
+  wm.addEventListener('pointermove', function (e) { ptr = [e.clientX, e.clientY]; if (!raf) raf = requestAnimationFrame(wave); });
+  wm.addEventListener('pointerleave', function () { ptr = null; if (!raf) raf = requestAnimationFrame(wave); });
+  addEventListener('scroll', function () { if (ptr) measure(); }, { passive: true });
 
   // Drop <video muted loop playsinline src="…"> inside any .screen: it plays on hover.
   items.forEach(function (el) {
