@@ -78,8 +78,9 @@
     transition: opacity .25s ease, scale .25s cubic-bezier(.2,.8,.2,1), filter .25s ease;
     will-change: transform;
   }
+  .desk .item { z-index: 6; }
   .item.dragging { cursor: grabbing; transition: opacity .25s ease; scale: 1.06; }
-  .desk:has(.item:hover) .item:not(:hover):not(.dragging) { opacity: .32; filter: saturate(.6); }
+  .desk:has(.item:hover) .item:not(:hover):not(.dragging), .dream:has(.item:hover) .item:not(:hover):not(.dragging) { opacity: .32; filter: saturate(.6); }
   .item.win:hover { scale: 1.32; }
   .item:not(.win):hover { scale: 1.15; }
   .item .cap { display: block; text-align: center; color: var(--faint); font-size: 13px; margin-top: 8px; white-space: nowrap; }
@@ -354,6 +355,112 @@
   footer.end .fine nav { display: flex; gap: 14px; }
   footer.end .fine a:hover { color: var(--ink); }
 
+
+  /* Aqua gloss on pills and chat bubbles */
+  .pill, .bubble { position: relative; isolation: isolate; }
+  .pill::before, .bubble::before {
+    content: ""; position: absolute; z-index: -1; left: 9px; right: 9px; top: 2px; height: 46%;
+    border-radius: 999px; background: linear-gradient(rgba(255,255,255,.95), rgba(255,255,255,.15));
+  }
+  .pill::after { content: ""; position: absolute; z-index: -1; left: 18%; right: 18%; bottom: 0; height: 40%; border-radius: 999px; background: radial-gradient(closest-side, rgba(255,255,255,.6), transparent); }
+  .bubble::after {
+    content: ""; position: absolute; right: -8px; bottom: -1px; width: 17px; height: 14px;
+    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 17 14'%3E%3Cpath d='M1 0C2 7 6 11 16 13 9 14.5 4 12.5.5 9.5' fill='%23A2D2F7' stroke='%233B63D6'/%3E%3C/svg%3E") no-repeat;
+  }
+  .bubble.reply::after { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 17 14'%3E%3Cpath d='M1 0C2 7 6 11 16 13 9 14.5 4 12.5.5 9.5' fill='%23FFC58A' stroke='%23C77A2A'/%3E%3C/svg%3E"); }
+
+  /* Desktop icons */
+  .icon { display: grid; justify-items: center; gap: 3px; width: 92px; }
+  .icon svg { width: 58px; height: 46px; filter: drop-shadow(0 2px 3px rgba(0,0,0,.16)); }
+  .icon.tall svg { width: 50px; height: 58px; }
+  .sticker-img { width: 78px; height: auto; display: block; pointer-events: none; filter: drop-shadow(0 4px 5px rgba(0,0,0,.18)); }
+  .trash-img { width: 64px; height: auto; pointer-events: none; filter: drop-shadow(0 3px 4px rgba(0,0,0,.15)); }
+  .icon .label { font-size: 12px; color: #2A2A2A; padding: 0 6px; border-radius: 4px; white-space: nowrap; }
+  .icon:hover .label { background: #1A7CF5; color: #fff; }
+  .f-blue { color: #74C0F4; } .f-pink { color: #F48FC5; }
+
+  /* Pop-up windows: Finder lists and the Puzzle */
+  .popwin { position: fixed; z-index: 150; left: 50%; top: 50%; margin: -170px 0 0 calc(min(380px, 100vw - 32px) / -2); width: min(380px, calc(100vw - 32px)); animation: pop .22s cubic-bezier(.2,.9,.3,1.2); }
+  @keyframes pop { from { scale: .85; opacity: 0; } }
+  .popwin .titlebar { cursor: grab; touch-action: none; }
+  .popwin .titlebar i:first-child { cursor: pointer; }
+  .popwin .body { background: #fff; border-radius: 4px; padding: 6px; max-height: 60vh; overflow: auto; }
+  .finder-row { display: grid; grid-template-columns: 26px 1fr auto; gap: 10px; align-items: center; padding: 6px 8px; border-radius: 5px; font-size: 13.5px; }
+  .finder-row:nth-child(odd) { background: #F4F5F7; }
+  .finder-row svg { width: 24px; height: 20px; }
+  .finder-row small { color: var(--faint); font-size: 12px; }
+  .finder-row a { color: var(--link); }
+  .puzzle { display: grid; grid-template-columns: repeat(4, 1fr); gap: 3px; padding: 8px; background: #C9C9C9; border-radius: 4px; aspect-ratio: 1; }
+  .puzzle button { all: unset; display: grid; place-items: center; border-radius: 4px; cursor: pointer; font: 600 22px Inter, sans-serif; color: #333; background: linear-gradient(#FDFDFD, #E3E3E3); box-shadow: inset 0 1px 0 #fff, 0 1px 2px rgba(0,0,0,.25); }
+  .puzzle button:hover { filter: brightness(1.04); }
+  .puzzle button.gap { visibility: hidden; }
+  .puzzle-foot { display: flex; justify-content: space-between; align-items: center; padding: 8px 4px 2px; font-size: 13px; color: var(--soft); }
+  .puzzle-foot button { all: unset; cursor: pointer; color: var(--link); }
+
+  /* Off the clock */
+  .dream { position: relative; padding: 90px 20px 120px; overflow: hidden; }
+  .dream .center { position: relative; z-index: 3; }
+  .arc-folder { position: absolute; width: 54px; height: 42px; z-index: 1; pointer-events: none; }
+  .notes { position: relative; z-index: 2; max-width: 540px; margin: 34px auto 0; }
+  .notes.window { background: linear-gradient(#F3EBC6, #E5D89F 28px, #fff 28px); border-color: #CFC48D; }
+  .notes .titlebar .name { color: #8C8255; }
+  .notes .body { background: #fff; padding: 22px 28px 26px; font-size: 18px; line-height: 1.6; color: #6A6A6A; }
+  .notes .body p { margin: 0 0 14px; }
+  .notes mark { background: #FFF59D; color: #222; padding: 1px 3px; border-radius: 2px; }
+  .notes .zh { color: #222; }
+  .notes .caret { display: inline-block; width: 1.5px; height: 1.1em; background: #222; vertical-align: -.2em; animation: blink 1s steps(1) infinite; }
+  .notes .sign { display: flex; justify-content: space-between; align-items: center; margin-top: 26px; }
+  .notes .who { display: flex; gap: 12px; align-items: center; font-size: 15px; line-height: 1.35; color: #222; }
+  .notes .who small { display: block; color: var(--faint); font-size: 14px; }
+  .avatar { width: 44px; height: 44px; border-radius: 50%; background: linear-gradient(135deg, #A2C7FF, #1A7CF5); color: #fff; display: grid; place-items: center; font-weight: 600; font-size: 15px; box-shadow: 0 2px 6px rgba(0,0,0,.15); }
+  .script { font-family: "Segoe Script", "Brush Script MT", "Comic Sans MS", cursive; font-size: 34px; color: #111; rotate: -6deg; }
+  .dream .item { z-index: 4; }
+  .drums .screen { aspect-ratio: 4/5; background: linear-gradient(#2B2B30, #141416); }
+  .drums svg.kit { position: absolute; inset: 12% 8% 18%; width: 84%; height: 70%; }
+  .drums .soon { position: absolute; left: 0; right: 0; bottom: 8px; text-align: center; color: rgba(255,255,255,.55); font-size: 10px; }
+
+  /* Footer columns and the folder wordmark */
+  .foot-cols { display: grid; grid-template-columns: repeat(4, 1fr); gap: 30px; max-width: 1000px; margin: 0 auto 60px; text-align: left; }
+  .foot-cols h4 { margin: 0 0 12px; font-size: 16px; font-weight: 500; }
+  .foot-cols a, .foot-cols p { display: block; color: var(--soft); font-size: 15.5px; margin: 0 0 10px; }
+  .foot-cols a:hover { color: var(--ink); }
+  .wordmark { display: grid; justify-content: center; gap: 0; margin: 0 auto; }
+  .wordmark svg { width: calc(var(--cell) * 1.14); height: calc(var(--cell) * .9); margin: 0 0 calc(var(--cell) * -.12) calc(var(--cell) * -.07); color: #74C0F4; transition: translate .2s; filter: drop-shadow(0 1px 1.5px rgba(0,0,0,.14)); }
+  .wordmark svg:hover { translate: 0 -4px; }
+
+  /* floppy, the site agent */
+  .tidying .item { transition: translate .9s cubic-bezier(.3,1.3,.5,1), opacity .25s, scale .25s; }
+  .buddy { position: fixed; right: 18px; bottom: 16px; z-index: 140; display: grid; justify-items: end; gap: 10px; }
+  .buddy-char { all: unset; cursor: pointer; width: 64px; height: 70px; animation: bob 3s ease-in-out infinite; filter: drop-shadow(0 8px 10px rgba(0,0,0,.18)); }
+  .buddy-char:hover { animation-play-state: paused; scale: 1.06; }
+  .buddy-char:focus-visible { outline: 2px solid var(--link); outline-offset: 4px; border-radius: 10px; }
+  .buddy-char svg { width: 100%; height: 100%; overflow: visible; }
+  .buddy-char .eyes { transform-box: fill-box; transform-origin: center; animation: blinky 4.2s infinite; }
+  .buddy-char .arm { transform-box: fill-box; transform-origin: 0% 100%; }
+  .buddy.talking .arm { animation: wave .5s ease-in-out 3; }
+  @keyframes bob { 50% { translate: 0 -5px; } }
+  @keyframes blinky { 0%, 92%, 100% { scale: 1 1; } 95% { scale: 1 .1; } }
+  @keyframes wave { 50% { rotate: -28deg; } }
+  .buddy .tip { max-width: 230px; font-size: 14.5px; cursor: pointer; opacity: 1; translate: 0 0; }
+  .buddy .tip[hidden] { display: none; }
+  .buddy-panel { width: min(340px, calc(100vw - 36px)); }
+  .buddy-panel[hidden] { display: none; }
+  .buddy-panel .body { background: #fff; border-radius: 4px; padding: 12px; }
+  .chat { display: grid; gap: 8px; max-height: 300px; overflow: auto; font-size: 14px; padding-right: 2px; }
+  .chat .m { padding: 7px 11px; border-radius: 14px; max-width: 86%; line-height: 1.4; }
+  .chat .bot { background: #F0F0F2; justify-self: start; border-bottom-left-radius: 4px; }
+  .chat .me { background: var(--aqua); border: 1px solid #3B63D6; justify-self: end; border-bottom-right-radius: 4px; }
+  .chat .tool { font: 11.5px/1.5 "JetBrains Mono", monospace; color: #7A7A7A; justify-self: start; padding: 0 4px; }
+  .chat .tool b { color: #1E7A45; font-weight: 500; }
+  .chat .typing span { display: inline-block; width: 6px; height: 6px; margin: 0 1px; border-radius: 50%; background: #999; animation: wv2 1s infinite; }
+  .chat .typing span:nth-child(2) { animation-delay: .15s; } .chat .typing span:nth-child(3) { animation-delay: .3s; }
+  @keyframes wv2 { 50% { translate: 0 -3px; opacity: .4; } }
+  .chat a { color: var(--link); }
+  .chips { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 12px; padding-top: 10px; border-top: 1px solid #EEE; }
+  .chips button { all: unset; cursor: pointer; font-size: 12.5px; padding: 4px 10px; border-radius: 999px; background: var(--silver); border: 1px solid #B9B9B9; box-shadow: inset 0 1px 0 #fff; }
+  .chips button:hover { border-color: #3B63D6; }
+  .chips button:disabled { opacity: .45; cursor: default; }
+
   @media (max-width: 900px) {
     .cards { grid-template-columns: 1fr; margin: 40px 0 0; max-width: 400px; margin-inline: auto; }
     .row, .row.flip { grid-template-columns: 1fr; gap: 28px; }
@@ -375,6 +482,10 @@
     .log .t { grid-column: 1; grid-row: 2; }
     .log .plus { grid-column: 2; grid-row: 1; }
     .ctas { gap: 14px; }
+    .foot-cols { grid-template-columns: 1fr 1fr; }
+    .arc-folder { display: none; }
+    .notes .body { font-size: 16px; padding: 18px; }
+    .dream .drums { position: relative; left: auto !important; top: auto !important; margin: 40px auto 0; }
   }
   @media (prefers-reduced-motion: reduce) {
     *, *::before, *::after { animation-duration: .001s !important; animation-iteration-count: 1 !important; transition-duration: .001s !important; }
@@ -391,12 +502,31 @@
   <symbol id="i-in" viewBox="0 0 16 16"><path fill="currentColor" d="M0 1.15C0 .52.52 0 1.17 0h13.66C15.48 0 16 .52 16 1.15v13.7c0 .63-.52 1.15-1.17 1.15H1.17C.52 16 0 15.48 0 14.85zm4.94 12.24V6.17H2.54v7.22zM3.74 5.18c.84 0 1.36-.55 1.36-1.25-.01-.71-.52-1.25-1.34-1.25S2.4 3.22 2.4 3.93c0 .7.52 1.25 1.32 1.25zm4.9 8.21V9.36c0-.22.02-.43.08-.59.17-.43.57-.88 1.23-.88.87 0 1.21.66 1.21 1.63v3.87h2.4V9.25c0-2.22-1.18-3.25-2.76-3.25-1.27 0-1.84.7-2.16 1.19V6.17h-2.4c.03.68 0 7.22 0 7.22z"/></symbol>
 </svg>
 
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <linearGradient id="g-fshine" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff" stop-opacity=".45"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></linearGradient>
+  </defs>
+  <symbol id="s-folder" viewBox="0 0 64 50">
+    <path d="M3 7a4 4 0 0 1 4-4h15l5 5h30a4 4 0 0 1 4 4v32a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4z" fill="currentColor"/>
+    <path d="M3 7a4 4 0 0 1 4-4h15l5 5h30a4 4 0 0 1 4 4v32a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4z" fill="#000" opacity=".16"/>
+    <rect x="1" y="13" width="62" height="35" rx="4" fill="currentColor"/>
+    <rect x="1" y="13" width="62" height="35" rx="4" fill="url(#g-fshine)"/>
+    <path d="M5 14.6h54" stroke="#fff" stroke-opacity=".8" stroke-width="1.2" stroke-linecap="round"/>
+  </symbol>
+  <symbol id="s-doc" viewBox="0 0 24 20"><path d="M6 1h8l5 5v12a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1z" fill="#fff" stroke="#B5B5B5"/><path d="M14 1v5h5" fill="#EEE" stroke="#B5B5B5"/></symbol>
+  <symbol id="s-puzzle" viewBox="0 0 50 50">
+    <rect x="1" y="1" width="48" height="48" rx="9" fill="#BFC3C9"/><rect x="1" y="1" width="48" height="48" rx="9" fill="url(#g-fshine)"/>
+    <g fill="#FBFBFB" stroke="#9EA3AA" stroke-width=".6"><rect x="5" y="5" width="9" height="9" rx="2"/><rect x="15.5" y="5" width="9" height="9" rx="2"/><rect x="26" y="5" width="9" height="9" rx="2"/><rect x="36.5" y="5" width="9" height="9" rx="2"/><rect x="5" y="15.5" width="9" height="9" rx="2"/><rect x="15.5" y="15.5" width="9" height="9" rx="2"/><rect x="26" y="15.5" width="9" height="9" rx="2"/><rect x="36.5" y="15.5" width="9" height="9" rx="2"/><rect x="5" y="26" width="9" height="9" rx="2"/><rect x="15.5" y="26" width="9" height="9" rx="2"/><rect x="36.5" y="26" width="9" height="9" rx="2"/><rect x="5" y="36.5" width="9" height="9" rx="2"/><rect x="15.5" y="36.5" width="9" height="9" rx="2"/><rect x="26" y="36.5" width="9" height="9" rx="2"/><rect x="36.5" y="36.5" width="9" height="9" rx="2"/></g>
+  </symbol>
+</svg>
+
 <header class="menubar">
   <nav aria-label="primary">
     <a href="#top">agustín</a>
     <a href="#work">work</a>
     <a href="#resume">résumé</a>
     <a href="#log">changelog</a>
+    <a href="#life">life</a>
     <a href="#faq">faq</a>
   </nav>
   <a href="#top" aria-label="back to top">
@@ -444,8 +574,8 @@
   </div>
 
   <div class="item kao hide-sm" style="left:30%;top:150px">^ ω ^</div>
-  <div class="item folder hide-sm" style="left:26%;top:272px" title="side-projects"></div>
-  <div class="item trash hide-sm" style="left:4%;top:300px"></div>
+  <div class="item icon hide-sm" data-open="side" style="left:25%;top:258px"><svg class="f-blue"><use href="#s-folder"/></svg><span class="label">side-projects</span></div>
+  <div class="item icon tall hide-sm" data-open="trash" style="left:2.5%;top:300px"><img class="trash-img" src="assets/trash.avif" alt="trash" draggable="false"></div>
   <div class="item kao hide-sm" style="left:58%;top:100px">¯\_(ツ)_/¯</div>
   <div class="item beach" style="left:54.5%;top:232px"></div>
 
@@ -479,13 +609,12 @@
   </div>
 
   <div class="item kao hide-sm" style="left:5%;top:690px;font-size:16px">(¬_¬)</div>
+  <div class="item hide-sm" data-open="agent" style="left:2.5%;top:540px;rotate:-8deg"><img class="sticker-img" src="assets/man-laptop.avif" alt="retro computer" draggable="false"></div>
 
-  <svg class="item mate hide-sm" style="left:20%;top:700px;rotate:-14deg" viewBox="0 0 46 56" aria-label="mate">
-    <path d="M8 18c0 22 4 34 15 34s15-12 15-34z" fill="#9A6B3C"/><path d="M8 18h30" stroke="#6E4823" stroke-width="3"/><ellipse cx="23" cy="18" rx="15" ry="4" fill="#5E8A3A"/><path d="M28 18 37 2" stroke="#C9C9C9" stroke-width="3.2" stroke-linecap="round"/><path d="M12 30c2 10 5 16 11 17" stroke="#B9874F" stroke-width="2" fill="none"/>
-  </svg>
 
   <div class="item kao hide-sm" style="left:73%;top:690px">{ ^-^ }</div>
-  <div class="item folder hide-sm" style="left:74.5%;top:562px" title="hackathons"></div>
+  <div class="item icon hide-sm" data-open="hack" style="left:73.5%;top:552px"><svg class="f-blue"><use href="#s-folder"/></svg><span class="label">hackathons</span></div>
+  <div class="item icon" data-open="puzzle" style="left:88%;top:330px"><svg style="width:46px;height:46px"><use href="#s-puzzle"/></svg><span class="label">Puzzle</span></div>
 
   <div class="item win" style="left:85%;top:440px;width:168px">
     <div class="window"><div class="titlebar"><i></i><i></i><i></i><span class="x">×</span></div>
@@ -702,6 +831,53 @@
   </ol>
 </section>
 
+<section class="dream" id="life">
+  <div class="center"><span class="eyebrow">off the clock</span></div>
+  <div id="arcs" aria-hidden="true"></div>
+
+  <div class="notes window">
+    <div class="titlebar"><i></i><i></i><i></i><span class="name">notes</span></div>
+    <div class="body">
+      <p>this year i started learning mandarin. i passed the hsk 2, which mostly means i can order food and apologize for my tones.</p>
+      <p class="zh" lang="zh">我的中文不太好，但是我每天都在学习。</p>
+      <p>i also play the drums. it's the one hour a week where nothing has a source, <mark>only a tempo.</mark></p>
+      <p>more soon. if you want to practice 中文, write me.<span class="caret" aria-hidden="true"></span></p>
+      <div class="sign">
+        <div class="who"><span class="avatar">AD</span><span>agustín,<small>engineer</small></span></div>
+        <span class="script" aria-hidden="true">agustín</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="item hide-sm" style="left:15%;top:150px;rotate:-5deg">
+    <div class="badge" style="--c:#D7261E"><header>你好<small>我叫</small></header><p>agustín</p><footer></footer></div>
+  </div>
+  <div class="item hide-sm" style="left:13%;top:430px;rotate:4deg">
+    <div class="note-paper" style="rotate:0deg;width:128px">HSK 2 ✓<br>next: HSK 3<br>加油!</div>
+  </div>
+  <div class="item kao hide-sm" style="left:24%;top:620px">( ˘▽˘)っ♨</div>
+  <div class="item win drums" style="left:73%;top:180px;width:190px">
+    <div class="window"><div class="titlebar"><i></i><i></i><i></i><span class="x">×</span></div>
+      <div class="screen">
+        <svg class="kit" viewBox="0 0 120 100" aria-hidden="true">
+          <g fill="none" stroke="#E8E8E8" stroke-width="1.6">
+            <ellipse cx="60" cy="72" rx="20" ry="20" fill="#C0392B" stroke="#F2F2F2"/>
+            <ellipse cx="38" cy="50" rx="11" ry="5" fill="#C0392B"/><ellipse cx="78" cy="48" rx="11" ry="5" fill="#C0392B"/>
+            <ellipse cx="22" cy="68" rx="10" ry="4" fill="#DDD"/><path d="M22 72v24"/>
+            <ellipse cx="16" cy="30" rx="15" ry="3" fill="#D4AF37" stroke="#F5D76E"/><path d="M16 33v63"/>
+            <ellipse cx="102" cy="26" rx="17" ry="3.4" fill="#D4AF37" stroke="#F5D76E"/><path d="M102 29v67"/>
+            <ellipse cx="98" cy="70" rx="12" ry="5" fill="#C0392B"/><path d="M92 75l-3 21M104 75l3 21"/>
+          </g>
+        </svg>
+        <span class="soon">drums.jpg · photo coming</span>
+        <div class="pp"><span><svg><use href="#i-pause"/></svg></span></div>
+      </div>
+    </div>
+    <span class="cap">sunday-practice.jpg</span>
+  </div>
+  <div class="item icon hide-sm" data-open="music" style="left:79%;top:600px"><svg class="f-pink"><use href="#s-folder"/></svg><span class="label">setlist</span></div>
+</section>
+
 <section id="faq">
   <div class="wrap center"><h2>frequently asked questions</h2></div>
   <div class="faq">
@@ -709,23 +885,54 @@
     <details><summary>what do you actually build?</summary><p>ai agents that run inside real businesses. the model reads and proposes; deterministic code checks every number before anyone acts on it.</p></details>
     <details><summary>why should i trust the numbers on this page?</summary><p>every line in the changelog carries its source. click one.</p></details>
     <details><summary>are you working on something right now?</summary><p>polpilot, full time. we applied to y combinator's w27 batch.</p></details>
-    <details><summary>can i drag the stuff at the top?</summary><p>yes. grab any window, sticker or folder and move it around. hover a window to play it.</p></details>
+    <details><summary>can i drag the stuff at the top?</summary><p>yes. grab any window, sticker or folder and move it around. hover a window to play it, double-click a folder to open it.</p></details>
+    <details><summary>is there a game somewhere?</summary><p>double-click the puzzle on the desktop. it's the sliding puzzle that shipped with the very first mac.</p></details>
     <details><summary>how do i reach you?</summary><p><a href="mailto:agus.delmonti@gmail.com">agus.delmonti@gmail.com</a>, <a href="https://www.linkedin.com/in/agustin-delmonti/">linkedin</a> or <a href="https://x.com/agus_delmo">x</a>.</p></details>
   </div>
 </section>
 </main>
 
 <footer class="end">
-  <div class="ctas">
-    <a class="pill" href="mailto:agus.delmonti@gmail.com"><svg><use href="#i-mail"/></svg>email me</a>
-    <a class="pill silver" href="https://www.linkedin.com/in/agustin-delmonti/"><svg><use href="#i-in"/></svg>linkedin</a>
+  <div class="foot-cols">
+    <div><h4>work</h4><a href="#work">polpilot</a><a href="#work">sifted</a><a href="https://github.com/agustindelmonti/speco-playground">speco</a><a href="https://app.metriu.com">metriu</a></div>
+    <div><h4>page</h4><a href="#resume">résumé</a><a href="#log">changelog</a><a href="#life">off the clock</a><a href="#faq">faq</a></div>
+    <div><h4>connect</h4><a href="mailto:agus.delmonti@gmail.com">email</a><a href="https://github.com/agustindelmonti">github</a><a href="https://www.linkedin.com/in/agustin-delmonti/">linkedin</a><a href="https://x.com/agus_delmo">x (twitter)</a></div>
+    <div><h4>disclaimer</h4><p>*every number on this page has a source. the changelog shows it*</p></div>
   </div>
-  <p class="giant" aria-hidden="true">agustín</p>
+  <div class="wordmark" id="wordmark" aria-label="agustín" role="img"></div>
   <div class="fine">
     <span>rosario, argentina · 2026</span>
-    <nav><a href="https://github.com/agustindelmonti">github</a><a href="https://www.linkedin.com/in/agustin-delmonti/">linkedin</a><a href="https://x.com/agus_delmo">x</a></nav>
+    <span>built by hand, no frameworks</span>
   </div>
 </footer>
+
+<div class="buddy" id="buddy">
+  <div class="buddy-panel window" id="buddyPanel" hidden>
+    <div class="titlebar"><i title="close"></i><i></i><i></i><span class="name">floppy.agent</span></div>
+    <div class="body"><div class="chat" id="chat" aria-live="polite"></div><div class="chips" id="chips"></div></div>
+  </div>
+  <div class="bubble tip" id="buddyTip" hidden>looks like you're reading a portfolio. want an agent to do it for you?</div>
+  <button class="buddy-char" id="buddyChar" type="button" aria-expanded="false" aria-label="open floppy, the page's agent">
+    <svg viewBox="0 0 64 70" aria-hidden="true">
+      <defs>
+        <linearGradient id="g-floppy" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#4A8DEB"/><stop offset="1" stop-color="#1F4FA8"/></linearGradient>
+        <linearGradient id="g-metal" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#C7CCD3"/><stop offset=".5" stop-color="#F3F5F8"/><stop offset="1" stop-color="#B8BEC6"/></linearGradient>
+      </defs>
+      <path class="arm" d="M5 40c-4-3-5-8-3-12" fill="none" stroke="#1F4FA8" stroke-width="3" stroke-linecap="round"/>
+      <path d="M58 42c3 2 4 6 3 9" fill="none" stroke="#1F4FA8" stroke-width="3" stroke-linecap="round"/>
+      <path d="M22 60v7M42 60v7" stroke="#1F4FA8" stroke-width="3" stroke-linecap="round"/>
+      <path d="M8 6a4 4 0 0 1 4-4h38l8 8v46a4 4 0 0 1-4 4H12a4 4 0 0 1-4-4z" fill="url(#g-floppy)"/>
+      <path d="M12 3h37l7 7v6H10V7a4 4 0 0 1 2-4z" fill="#fff" opacity=".18"/>
+      <rect x="20" y="2" width="24" height="15" rx="1.5" fill="url(#g-metal)"/>
+      <rect x="35" y="5" width="5" height="9" rx="1" fill="#1A2B4A"/>
+      <rect x="14" y="26" width="36" height="30" rx="2.5" fill="#FDFDFB"/>
+      <path d="M17 31h30" stroke="#E7A0A0" stroke-width=".8"/>
+      <g class="eyes"><ellipse cx="25" cy="40" rx="3.6" ry="4.6" fill="#111"/><ellipse cx="39" cy="40" rx="3.6" ry="4.6" fill="#111"/><circle cx="26.2" cy="38.4" r="1.3" fill="#fff"/><circle cx="40.2" cy="38.4" r="1.3" fill="#fff"/></g>
+      <path d="M27 48.5c2.6 2.4 7.4 2.4 10 0" fill="none" stroke="#111" stroke-width="1.8" stroke-linecap="round"/>
+      <circle cx="20" cy="47" r="2.2" fill="#FF9BB0" opacity=".7"/><circle cx="44" cy="47" r="2.2" fill="#FF9BB0" opacity=".7"/>
+    </svg>
+  </button>
+</div>
 
 <script>
 (function () {
@@ -734,15 +941,24 @@
   function tick() { clock.textContent = fmt.format(new Date()); }
   tick(); setInterval(tick, 15000);
 
-  // Drag anything on the desk. Offsets live in a CSS translate so hover scale still works.
+  // Drag anything marked .item. Offsets live in a CSS translate so hover scale still works.
   var desk = document.getElementById('desk');
   var top = 10;
-  desk.querySelectorAll('.item').forEach(function (el) {
-    var x = 0, y = 0, sx, sy, ox, oy, id = null;
+  // Items grow toward the middle of their area: the corner farthest from it stays put.
+  function setOrigin(el) {
+    var area = el.closest('.desk, .dream'); if (!area) return;
+    var a = area.getBoundingClientRect(), r = el.getBoundingClientRect();
+    var cy = area === desk ? a.top + 480 : a.top + a.height / 2;
+    el.style.transformOrigin = (r.left + r.width / 2 < a.left + a.width / 2 ? 'left' : 'right') + ' ' + (r.top + r.height / 2 < cy ? 'top' : 'bottom');
+  }
+  var items = document.querySelectorAll('.item');
+  items.forEach(function (el) {
+    var x = 0, y = 0, sx, sy, ox, oy, id = null, moved = 0, lastUp = 0;
+    setOrigin(el);
     el.addEventListener('pointerdown', function (e) {
       if (e.button !== 0) return;
       id = e.pointerId; el.setPointerCapture(id);
-      sx = e.clientX; sy = e.clientY; ox = x; oy = y;
+      sx = e.clientX; sy = e.clientY; ox = x; oy = y; moved = 0;
       el.style.zIndex = ++top;
       el.classList.add('dragging');
       e.preventDefault();
@@ -750,18 +966,138 @@
     el.addEventListener('pointermove', function (e) {
       if (e.pointerId !== id) return;
       x = ox + e.clientX - sx; y = oy + e.clientY - sy;
+      moved = Math.max(moved, Math.abs(e.clientX - sx) + Math.abs(e.clientY - sy));
       el.style.translate = x + 'px ' + y + 'px';
     });
     function end(e) {
       if (e.pointerId !== id) return;
-      id = null; el.classList.remove('dragging');
+      id = null; el.classList.remove('dragging'); setOrigin(el);
+      if (e.type !== 'pointerup' || moved >= 6 || !el.dataset.open) return;
+      var now = Date.now();
+      if (e.pointerType !== 'mouse' || now - lastUp < 450) { lastUp = 0; openWin(el.dataset.open); } else lastUp = now;
     }
     el.addEventListener('pointerup', end);
     el.addEventListener('pointercancel', end);
+    el.addEventListener('moveto', function (e) { x = e.detail.x; y = e.detail.y; el.style.translate = x + 'px ' + y + 'px'; });
+  });
+  addEventListener('resize', function () { items.forEach(setOrigin); });
+
+  var FOLDERS = {
+    side: { title: 'side-projects', rows: [['speco', 'specs reviewed before code. paused', 'https://github.com/agustindelmonti/speco-playground'], ['metriu', 'anthropometry for nutritionists. live', 'https://app.metriu.com'], ['this website', 'you are here']] },
+    hack: { title: 'hackathons', rows: [['córdoba hack 2026', '1st, ai track'], ['cursor hackathon mar del plata', '1st place'], ['shippear ed. 2, rosario', '1st, finance track']] },
+    trash: { title: 'Trash', doc: true, rows: [['monolith-v1.zip', '2019'], ['my-first-php-site/', 'never again'], ['todo-app-FINAL-final2/', 'a classic'], ['estimates.xlsx', 'optimistic']] },
+    music: { title: 'setlist', doc: true, rows: [['song one', 'learning'], ['song two', 'nailed it'], ['metronome at 90 bpm', 'every sunday']] }
+  };
+  function esc(t) { return t.replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
+  function openWin(key) {
+    if (key === 'agent') { if (panel.hidden) toggleBuddy(); return; }
+    var old = document.querySelector('.popwin[data-key="' + key + '"]');
+    if (old) { old.style.zIndex = 150 + (++top); return; }
+    var w = document.createElement('div');
+    w.className = 'popwin window'; w.dataset.key = key; w.style.zIndex = 150 + (++top);
+    var title = key === 'puzzle' ? 'Puzzle' : FOLDERS[key].title;
+    var html = '<div class="titlebar"><i title="close"></i><i></i><i></i><span class="name">' + esc(title) + '</span></div><div class="body">';
+    if (key === 'puzzle') {
+      html += '<div class="puzzle"></div><div class="puzzle-foot"><span class="msg"></span><button type="button">shuffle</button></div>';
+    } else {
+      var f = FOLDERS[key];
+      f.rows.forEach(function (r) {
+        var name = r[2] ? '<a href="' + r[2] + '">' + esc(r[0]) + '</a>' : esc(r[0]);
+        html += '<div class="finder-row"><svg' + (f.doc ? '' : ' class="f-blue"') + '><use href="#' + (f.doc ? 's-doc' : 's-folder') + '"/></svg><span>' + name + '</span><small>' + esc(r[1]) + '</small></div>';
+      });
+    }
+    w.innerHTML = html + '</div>';
+    document.body.appendChild(w);
+    w.querySelector('.titlebar i').addEventListener('click', function () { w.remove(); });
+    var bar = w.querySelector('.titlebar'), dx = 0, dy = 0, px, py, pid = null;
+    bar.addEventListener('pointerdown', function (e) {
+      if (e.target.tagName === 'I') return;
+      pid = e.pointerId; bar.setPointerCapture(pid); px = e.clientX - dx; py = e.clientY - dy; w.style.zIndex = 150 + (++top);
+    });
+    bar.addEventListener('pointermove', function (e) {
+      if (e.pointerId !== pid) return;
+      dx = e.clientX - px; dy = e.clientY - py; w.style.transform = 'translate(' + dx + 'px,' + dy + 'px)';
+    });
+    bar.addEventListener('pointerup', function () { pid = null; });
+    if (key === 'puzzle') puzzle(w);
+  }
+
+  // The 15 puzzle. Shuffled with legal moves so it is always solvable.
+  function puzzle(w) {
+    var grid = w.querySelector('.puzzle'), msg = w.querySelector('.msg'), tiles = [], moves = 0;
+    function draw() {
+      grid.innerHTML = '';
+      tiles.forEach(function (t, i) {
+        var b = document.createElement('button'); b.type = 'button';
+        if (t === 0) { b.className = 'gap'; b.tabIndex = -1; } else { b.textContent = t; b.addEventListener('click', function () { slide(i); }); }
+        grid.appendChild(b);
+      });
+    }
+    function near(i, j) { return Math.abs(i - j) === 4 || (Math.abs(i - j) === 1 && Math.floor(i / 4) === Math.floor(j / 4)); }
+    function slide(i) {
+      var g = tiles.indexOf(0);
+      if (!near(i, g)) return;
+      tiles[g] = tiles[i]; tiles[i] = 0; moves++; draw();
+      var solved = tiles.every(function (t, k) { return t === (k + 1) % 16; });
+      msg.textContent = (solved ? 'solved in ' : '') + moves + (moves === 1 ? ' move' : ' moves') + (solved ? '. 厉害!' : '');
+    }
+    function shuffle() {
+      tiles = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 0];
+      var g = 15, prev = -1;
+      for (var n = 0; n < 160; n++) {
+        var opts = [g - 4, g + 4, g - 1, g + 1].filter(function (j) { return j >= 0 && j < 16 && j !== prev && near(g, j); });
+        var j = opts[Math.floor(Math.random() * opts.length)];
+        tiles[g] = tiles[j]; tiles[j] = 0; prev = g; g = j;
+      }
+      moves = 0; msg.textContent = 'slide the tiles into order'; draw();
+    }
+    w.querySelector('.puzzle-foot button').addEventListener('click', shuffle);
+    shuffle();
+  }
+
+  // Rainbow folder arcs beside the notes window.
+  var arcs = document.getElementById('arcs');
+  function arc(x0, y0, cx, cy, x1, y1, h0, h1, n) {
+    for (var i = 0; i < n; i++) {
+      var t = i / (n - 1), u = 1 - t;
+      var s = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+      s.setAttribute('class', 'arc-folder');
+      s.innerHTML = '<use href="#s-folder"/>';
+      s.style.left = (u * u * x0 + 2 * u * t * cx + t * t * x1) + '%';
+      s.style.top = (u * u * y0 + 2 * u * t * cy + t * t * y1) + '%';
+      s.style.color = 'hsl(' + (h0 + (h1 - h0) * t) + ' 85% 70%)';
+      s.style.opacity = Math.min(1, .15 + t * 1.2);
+      arcs.appendChild(s);
+    }
+  }
+  arc(5, 80, 3, 16, 30, 22, 270, 330, 18);
+  arc(91, 80, 95, 16, 67, 22, 50, 110, 18);
+
+  // Footer wordmark spelled with folders.
+  var FONT = {
+    a: ['.....', '.....', '.###.', '....#', '.####', '#...#', '.####', '.....'],
+    g: ['.....', '.....', '.####', '#...#', '#...#', '.####', '....#', '.###.'],
+    u: ['.....', '.....', '#...#', '#...#', '#...#', '#...#', '.####', '.....'],
+    s: ['.....', '.....', '.####', '#....', '.###.', '....#', '####.', '.....'],
+    t: ['.#...', '.#...', '####.', '.#...', '.#...', '.#..#', '..##.', '.....'],
+    'í': ['..#', '.#.', '...', '##.', '.#.', '.#.', '###', '...'],
+    n: ['.....', '.....', '####.', '#...#', '#...#', '#...#', '#...#', '.....']
+  };
+  var wm = document.getElementById('wordmark'), letters = 'agustín'.split(''), rows = [];
+  for (var r = 0; r < 8; r++) rows.push(letters.map(function (ch) { return FONT[ch][r]; }).join('.'));
+  var cols = rows[0].length;
+  wm.style.gridTemplateColumns = 'repeat(' + cols + ', var(--cell))';
+  wm.style.setProperty('--cell', 'min(30px, calc((100vw - 40px) / ' + cols + '))');
+  rows.forEach(function (row) {
+    row.split('').forEach(function (c) {
+      var cell = c === '#' ? document.createElementNS('http://www.w3.org/2000/svg', 'svg') : document.createElement('span');
+      if (c === '#') cell.innerHTML = '<use href="#s-folder"/>';
+      wm.appendChild(cell);
+    });
   });
 
   // Drop <video muted loop playsinline src="…"> inside any .screen: it plays on hover.
-  desk.querySelectorAll('.item').forEach(function (el) {
+  items.forEach(function (el) {
     var v = el.querySelector('video');
     if (!v) return;
     el.addEventListener('mouseenter', function () { v.play().catch(function () {}); });
@@ -817,6 +1153,61 @@
       b.setAttribute('aria-expanded', open ? 'true' : 'false');
     });
   });
+
+  // floppy: a scripted agent. Each answer is a fake tool call that really does something on the page.
+  var buddy = document.getElementById('buddy'), panel = document.getElementById('buddyPanel'), tip = document.getElementById('buddyTip');
+  var chat = document.getElementById('chat'), chips = document.getElementById('chips');
+  function add(cls, html) { var d = document.createElement('div'); d.className = 'm ' + cls; d.innerHTML = html; chat.appendChild(d); chat.scrollTop = chat.scrollHeight; return d; }
+  function deskItems() { return Array.prototype.slice.call(desk.querySelectorAll('.item')); }
+  function moveAll(fn) {
+    document.body.classList.add('tidying');
+    deskItems().forEach(function (el) { el.dispatchEvent(new CustomEvent('moveto', { detail: fn(el) })); });
+    setTimeout(function () { document.body.classList.remove('tidying'); items.forEach(setOrigin); }, 950);
+  }
+  var SKILLS = [
+    { q: 'what does agustín build?', tool: 'read_page("#work")', a: 'agents that run inside real businesses. the model proposes, code checks every number. <a href="#work">see the work</a>.', run: function () {} },
+    { q: 'mess up the desktop', tool: 'scatter(items=all)', a: 'done. chaos is also a feature.', run: function () { scrollTo({ top: 0 }); moveAll(function () { return { x: Math.round((Math.random() - .5) * 360), y: Math.round((Math.random() - .5) * 260) }; }); } },
+    { q: 'tidy it up', tool: 'tidy_desktop()', a: 'everything is back where it started. i am a very organized agent.', run: function () { scrollTo({ top: 0 }); moveAll(function () { return { x: 0, y: 0 }; }); } },
+    { q: 'i\'m bored', tool: 'open_app("Puzzle")', a: 'opened the puzzle. it shipped with the first mac, in 1984.', run: function () { openWin('puzzle'); } },
+    { q: 'is he available?', tool: 'check_calendar("agustín")', a: 'full time on polpilot, but he answers every email. <a href="mailto:agus.delmonti@gmail.com">write him</a>.', run: function () {} },
+    { q: 'are you a real ai?', tool: 'introspect()', a: 'no, i\'m about 60 lines of javascript on a floppy. agustín builds the real ones.', run: function () {} }
+  ];
+  var busy = false;
+  function ask(s) {
+    if (busy) return; busy = true;
+    add('me', esc(s.q));
+    chips.querySelectorAll('button').forEach(function (b) { b.disabled = true; });
+    var t = add('bot typing', '<span></span><span></span><span></span>');
+    setTimeout(function () {
+      t.className = 'm tool'; t.innerHTML = '› calling <b>' + esc(s.tool) + '</b>';
+      setTimeout(function () {
+        s.run();
+        add('bot', s.a);
+        buddy.classList.add('talking'); setTimeout(function () { buddy.classList.remove('talking'); }, 1600);
+        busy = false;
+        chips.querySelectorAll('button').forEach(function (b) { b.disabled = false; });
+      }, 650);
+    }, 700);
+  }
+  SKILLS.forEach(function (s) {
+    var b = document.createElement('button'); b.type = 'button'; b.textContent = s.q;
+    b.addEventListener('click', function () { ask(s); });
+    chips.appendChild(b);
+  });
+  function toggleBuddy() {
+    var open = panel.hidden;
+    panel.hidden = !open; tip.hidden = true;
+    document.getElementById('buddyChar').setAttribute('aria-expanded', open ? 'true' : 'false');
+    if (open && !chat.children.length) add('bot', 'hi! i\'m floppy, the agent that runs this page. pick something and i\'ll do it.');
+  }
+  document.getElementById('buddyChar').addEventListener('click', toggleBuddy);
+  tip.addEventListener('click', toggleBuddy);
+  panel.querySelector('.titlebar i').addEventListener('click', toggleBuddy);
+  setTimeout(function () {
+    if (!panel.hidden) return;
+    tip.hidden = false; buddy.classList.add('talking');
+    setTimeout(function () { buddy.classList.remove('talking'); }, 1600);
+  }, 5000);
 })();
 </script>
 </body>
