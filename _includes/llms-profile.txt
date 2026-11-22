@@ -1,0 +1,16 @@
+# Agustín Delmonti
+
+> Software engineer in Rosario, Argentina. CTO and co-founder of PolPilot, and Forward Deployed Engineer at Sifted, where he owns the architecture of Sifted's own AI agent platform. He builds AI agents that run inside real businesses: the model reads and proposes, deterministic code checks every number before anyone acts on it.
+
+Key facts:
+
+- Role: CTO and co-founder, PolPilot (Aug 2026 to now). PolPilot is an AI operations layer for small and mid-sized businesses. First vertical: regulatory paperwork for seed-potato growers. He is its only engineer. PolPilot applied to Y Combinator, W27 batch.
+- Role: Forward Deployed Engineer, Sifted (Aug 2023 to now, remote, Kansas City). Sifted does parcel-logistics analytics. He built Sifted's own agent loop on AWS Bedrock (about 40 tools, MCP connectors, permission gates, scheduled autonomous agents, telemetry). It replaced Snowflake's vendor agent for 100% of customers in September 2026, runs 241 scheduled agents and serves about 100 people a day. He leads two engineers. He also built Sifted's public MCP server, listed in Claude's connector directory. Earlier work at Sifted cut about $2M a year in maintenance costs and made dashboards 80% faster to deliver.
+- Side projects: Speco (code review for specs before coding agents write code; built alone in two weeks, 76 reviewed PRs; paused) and Metriu (ISAK anthropometric assessments for nutritionists and sports professionals; live at app.metriu.com).
+- Hackathons, 2026: 1st place AI track at Córdoba Hack; 1st place at Cursor Hackathon Mar del Plata; 1st place Finance track at Shippear ed. 2, Rosario.
+- Before: Senior Software Engineer and Architect at Santander Tecnología (event-driven audit-logging platform, 2022 to 2023); full-stack .NET at Mutual de Socios AMR; Go backend at Talkiu; real-time traffic dashboards for the City of Rosario.
+- Education: Information Systems Engineering, UTN Rosario, GPA 9.21/10. Friends of Fulbright semester at the University of Arkansas (2020). Listed among Rosario's top graduates by Punto Biz.
+- Stack: TypeScript, Postgres, Go, Java, Kafka, .NET, AWS Bedrock, MCP, Snowflake, Claude and coding agents.
+- Languages: Spanish, English, Mandarin (HSK 2, studying for HSK 3).
+- Contact: agus.delmonti@gmail.com · https://github.com/agustindelmonti · https://www.linkedin.com/in/agustin-delmonti/ · https://x.com/agus_delmo
+

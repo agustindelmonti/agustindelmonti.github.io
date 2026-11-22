@@ -1,0 +1,57 @@
+title: agustín delmonti
+tagline: an engineer who builds ai agents for real businesses
+description: >-
+  Agustín Delmonti, CTO and co-founder of PolPilot and the engineer behind Sifted's
+  agent platform. Writing about AI agents that run inside real businesses.
+url: https://agustindelmonti.github.io
+lang: en_US
+locale: en_US
+timezone: America/Argentina/Cordoba
+
+author:
+  name: Agustín Delmonti
+  url: https://agustindelmonti.github.io
+  email: agus.delmonti@gmail.com
+  twitter: agus_delmo
+
+twitter:
+  username: agus_delmo
+  card: summary_large_image
+
+social:
+  name: Agustín Delmonti
+  links:
+    - https://github.com/agustindelmonti
+    - https://www.linkedin.com/in/agustin-delmonti/
+    - https://x.com/agus_delmo
+
+logo: /assets/og.jpg
+image: /assets/og.jpg
+
+markdown: kramdown
+highlighter: rouge
+permalink: /blog/:title/
+
+plugins:
+  - jekyll-feed
+  - jekyll-sitemap
+  - jekyll-seo-tag
+
+feed:
+  path: blog/feed.xml
+
+defaults:
+  - scope: { path: "" }
+    values:
+      image: /assets/og.jpg
+  - scope: { path: "", type: posts }
+    values:
+      layout: post
+      author: Agustín Delmonti
+
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - PRODUCT.md
+  - DESIGN.md
+  - README.md
