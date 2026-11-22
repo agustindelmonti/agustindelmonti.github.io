@@ -1,0 +1,20 @@
+---
+layout: null
+permalink: /llms.txt
+sitemap: false
+---
+{% include llms-profile.txt %}## Pages
+
+- [Portfolio]({{ '/' | absolute_url }}): work, résumé, a sourced changelog of every claim, hobbies and FAQ.
+- [Blog]({{ '/blog/' | absolute_url }}): posts on building AI agents for real businesses.
+- [Full text for LLMs]({{ '/llms-full.txt' | absolute_url }}): this file plus the full text of every blog post.
+
+## Blog posts
+{% if site.posts.size > 0 %}{% for post in site.posts %}
+- [{{ post.title }}]({{ post.url | absolute_url }}){% if post.description %}: {{ post.description }}{% endif %}{% endfor %}{% else %}
+- No posts yet. New posts appear here and in the RSS feed at {{ '/blog/feed.xml' | absolute_url }}.{% endif %}
+
+## Optional
+
+- [RSS feed]({{ '/blog/feed.xml' | absolute_url }})
+- [Sitemap]({{ '/sitemap.xml' | absolute_url }})

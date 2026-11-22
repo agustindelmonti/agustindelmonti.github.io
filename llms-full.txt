@@ -1,0 +1,21 @@
+---
+layout: null
+permalink: /llms-full.txt
+sitemap: false
+---
+{% include llms-profile.txt %}
+## Blog posts, full text
+{% if site.posts.size == 0 %}
+No posts yet.
+{% endif %}{% for post in site.posts %}
+---
+
+# {{ post.title }}
+
+URL: {{ post.url | absolute_url }}
+Published: {{ post.date | date: '%Y-%m-%d' }}{% if post.last_modified_at %} · Updated: {{ post.last_modified_at | date: '%Y-%m-%d' }}{% endif %}
+{% if post.tldr %}
+Short answer: {{ post.tldr }}
+{% endif %}
+{{ post.content | strip_html }}
+{% endfor %}
